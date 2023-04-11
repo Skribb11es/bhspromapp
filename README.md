@@ -6,7 +6,7 @@ Late in the 2022 school year, I was reached out to by my school's IT administrat
 
 The IT admins would then reach back out to me again late in the 2023 school year, about a very small change that they had seen requested by one of the school administrators. This change was simply rearranging the order of some text when retrieved from the district's databases.
 
-In summary, the changes I have made over the ~year that I have had around this project, I have made some minor improvements to an otherwise already capable application, and I highly recommend that you look into the original project by [Richard Kriesman](https://github.com/richardkriesman/)\
+In summary, the changes I have made over the ~year that I have had around this project, I have made some minor improvements to an otherwise already capable application, and I highly recommend that you look into the original project by [Richard Kriesman](https://github.com/richardkriesman/).
 
 # BHSPromApp
 
