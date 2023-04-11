@@ -10,6 +10,7 @@ const PORT = 8080;
 app.listen(PORT, function() {
     console.log('BHSPromApp v3.3');
     console.log('Created by Richard Kriesman for L.D. Bell High School');
+    console.log('Updated by William Davis to v3.4');
     console.log('Licensed under the GPLv3');
     console.log('-----------------------------------------------------');
     console.log('Initialization completed');

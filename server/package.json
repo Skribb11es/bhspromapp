@@ -5,7 +5,7 @@
   "author": "Richard Kriesman <richard_kriesman@outlook.com> (https://www.richardkriesman.com)",
   "main": "server.js",
   "dependencies": {
-    "express": "^4.13.4",
+    "express": "^4.17.3",
     "node-php": "0.0.1",
     "php-cgi": "^0.2.0"
   }

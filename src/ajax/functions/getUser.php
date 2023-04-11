@@ -10,9 +10,9 @@
         die('!: Invalid request!');
     }
 
-    set_error_handler(function() {
+    set_error_handler(function($errornum, $error) {
         $xml = new SimpleXMLElement('<?xml version="1.0" encoding="utf-8" ?><User></User>');
-        $xml->addChild('error', 'The domain controller could not be reached. Check your configuration settings.');
+        $xml->addChild('error', LDAP_USERNAME);
         header('Content-type: text/xml');
         echo $xml->asXML();
         die();
@@ -57,8 +57,8 @@
     //user exists, echo as xml file
     $xml->addChild('idNumber', $_GET['idNumber']);
     $xml->addChild('samaccountname', $data[0]['samaccountname'][0]);
-    $xml->addChild('cn', $data[0]['displayname'][0]);
-
+    $cname = $data[0]['displayname'][0].split(" ");
+    $xml->addChild('cn', $cname[0].concat(", ", $cname[1]));
     header('Content-type: text/xml');
     echo $xml->asXML();
 

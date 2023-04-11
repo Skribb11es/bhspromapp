@@ -1,3 +1,13 @@
+# IMPORTANT!
+
+This is an updated version of software developed by [Richard Kreisman](https://github.com/richardkriesman/), and all respective credits should go to them.
+
+Late in the 2022 school year, I was reached out to by my school's IT administration about a possible issue that they had with "BHSPromApp", and I told them I would look into it. Upon doing so, I realized that the fixes that were needed were more than within my scope of knowledge, and I was able to quickly resolve them, returning to them an updated version of the application, that both included patches for the issues they encountered, along with additional features for managing accounts that had been registered. These features primarily focused on changing the method in which a user's roles were selected, instead of a promotion system, they were instead replaced with a dropdown menu that allows an admin to select the specific role to promote a user to instead of individual promotions.
+
+The IT admins would then reach back out to me again late in the 2023 school year, about a very small change that they had seen requested by one of the school administrators. This change was simply rearranging the order of some text when retrieved from the district's databases.
+
+In summary, the changes I have made over the ~year that I have had around this project, I have made some minor improvements to an otherwise already capable application, and I highly recommend that you look into the original project by [Richard Kriesman](https://github.com/richardkriesman/).
+
 # BHSPromApp
 
 BHSPromApp is a web-based registration, finance, and seating assignment system for events, created for L.D. Bell High School to use for their senior prom. I created this as a volunteer project during my Junior and Senior years of high school there. Yes, it's PHP. Yes, it's janky. Yes, the code is spaghetti. But I'm still putting it up here for reasons. Maybe I'll actually pick it up and mess with it some time.

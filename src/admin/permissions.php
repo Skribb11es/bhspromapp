@@ -118,7 +118,7 @@
             <p>
                 <span style="font-size:18px;font-weight:bold">Customization</span><br/>
                 <input type="checkbox" name="customizeImage" value="yes" <?php if((bool)getOption($pdo, 'permissions_customizeImage')) { echo 'checked="checked" '; } ?>>Allow Setting Background Image</input><br/>
-                <input type="checkbox" name="customizeColour" value="yes" <?php if((bool)getOption($pdo, 'permissions_customizeColour')) { echo 'checked="checked" '; } ?>>Allow Setting Background Color</input><br/>
+                <input type="checkbox" name="customizeColour" value="yes" <?php if((bool)getOption($pdo, 'permissions_customizeColour')) { echo 'checked="checked" '; } ?>>Allow Setting Background Colour</input><br/>
             </p>
             <p></p>
             <p><input type="submit" value="Save" /></p>
