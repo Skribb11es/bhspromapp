@@ -1,6 +1,6 @@
 <?php
     require('../include/bootstrap.inc.php');
-    
+
     session_start();
 
 	requireLogin($pdo);
@@ -69,41 +69,20 @@
                             $success = true;
                         }
                     }
-                } else if($_POST['submit'] == "Promote" && (bool)getOption($pdo, 'permissions_usersPromoteDemote')) {
+                } else if($_POST['submit'] == "Set Role" && (bool)getOption($pdo, 'permissions_usersPromoteDemote')) {
                     //ensure the user isn't themself
                     $queryUserData = $pdo->prepare("SELECT * FROM `users` WHERE `id` = :id LIMIT 1");
                     $queryUserData->execute(array('id' => $_POST['events']));
+                    $role = $_POST['roles'];
                     $dataUserData = $queryUserData->fetchAll();
                     if(count($dataUserData) > 0) {
                         if($dataUserData[0]['username'] == $_SESSION['username']) {
                             $error = "You cannot change your own permission level.";
-                        } else if($dataUserData[0]['permissionLevel'] == 3) {
-                            $error = "This user is already at the highest permission level.";
-                        } else if($dataUserData[0]['permissionLevel'] >= $_SESSION['permissionLevel']) {
+                        } else if($dataUserData[0]['permissionLevel'] > $_SESSION['permissionLevel']) {
                             $error = "You don't have permission to promote that high.";
                         } else {
                             //toggle permissions
-                            $queryUsers = $pdo->prepare("UPDATE `users` SET `permissionLevel` = permissionLevel + 1 WHERE `id` = :id");
-                            $queryUsers->execute(array('id' => $_POST['events']));
-
-                            $success = true;
-                        }
-                    }
-                } else if($_POST['submit'] == "Demote" && (bool)getOption($pdo, 'permissions_usersPromoteDemote')) {
-                    //ensure the user isn't themself
-                    $queryUserData = $pdo->prepare("SELECT * FROM `users` WHERE `id` = :id LIMIT 1");
-                    $queryUserData->execute(array('id' => $_POST['events']));
-                    $dataUserData = $queryUserData->fetchAll();
-                    if(count($dataUserData) > 0) {
-                        if($dataUserData[0]['username'] == $_SESSION['username']) {
-                            $error = "You cannot change your own permission level.";
-                        } else if($dataUserData[0]['permissionLevel'] == 0) {
-                            $error = "This user is already at the lowest permission level.";
-                        } else if($dataUserData[0]['permissionLevel'] > $_SESSION['permissionLevel']) {
-                                $error = "You don't have permission to demote that user.";
-                        } else {
-                            //toggle permissions
-                            $queryUsers = $pdo->prepare("UPDATE `users` SET `permissionLevel` = permissionLevel - 1 WHERE `id` = :id");
+                            $queryUsers = $pdo->prepare("UPDATE `users` SET `permissionLevel` = {$role} WHERE `id` = :id");
                             $queryUsers->execute(array('id' => $_POST['events']));
 
                             $success = true;
@@ -129,7 +108,7 @@
         background-attachment:fixed;
         background-color:#000000;
     }
-    
+
     #overlay {
         position:absolute;
         top:50%;
@@ -137,14 +116,14 @@
         margin-top:-187px;
         margin-left:-150px;
     }
-    
+
     #footer {
         position:absolute;
         bottom:0;
         margin-left:45px;
         font-size:12px;
     }
-    
+
     .formElements {
         text-align:left;
         font-size:14px;
@@ -161,7 +140,7 @@
             if($message) {
                 echo '<p style="color:green;font-size:16px;margin:0px 10px 0px 10px">'.$message.'</p><br/>';
             } else if($success) {
-                echo '<p style="color:green;font-size:16px;margin:0px 10px 0px 10px">The operation completed successfully.</p><br/>';
+                echo '<p style="color:green;font-size:16px;margin:0px 10px 0px 10px">Successfully completed the operation.</p><br/>';
             } else if($error != "") {
                 echo '<p style="color:red;font-size:16px;margin:0px 10px 0px 10px">'.$error.'</p><br/>';
             }
@@ -180,7 +159,15 @@
                 <p><input type="submit" name="submit" onclick="return confirm('Are you sure you want to delete this user?')"value="Delete User" title="Delete the user's account." <?php if(!(bool)getOption($pdo, 'permissions_usersDelete')) { echo 'disabled'; } ?>/></p>
                 <p><input type="submit" name="submit" value="Reset Password" onclick="return confirm('Are you sure you want to reset this user\'s password?')" title="Reset the user's password to a random value. They will be required to change their password the next time they log in." <?php if(!(bool)getOption($pdo, 'permissions_usersReset')) { echo 'disabled'; } ?>/></p>
                 <p><input type="submit" name="submit" value="Toggle Enabled" title="Enable or disable this account. Disabled accounts will be unable to log in." <?php if(!(bool)getOption($pdo, 'permissions_usersToggleEnabled')) { echo 'disabled'; } ?>/></p>
-                <p><input type="submit" name="submit" value="Promote" title="Grant this user an additional permission level." <?php if(!(bool)getOption($pdo, 'permissions_usersPromoteDemote')) { echo 'disabled'; } ?>/>&nbsp;<input type="submit" name="submit" value="Demote" title="Revoke a permission level from this user." <?php if(!(bool)getOption($pdo, 'permissions_usersPromoteDemote')) { echo 'disabled'; } ?>/></p>
+                <select name="roles" style="width:85%">
+                    <?php
+                        echo '<option value="3">Super Admin</option>';
+                        echo '<option value="2">Admin</option>';
+                        echo '<option value="1">Default</option>';
+                        echo '<option value="0">Read Only</option>';
+                    ?>
+                </select><br/>
+                <p><input type="submit" name="submit" value="Set Role" title="Grant this user an additional permission level." <?php if(!(bool)getOption($pdo, 'permissions_usersPromoteDemote')) { echo 'disabled'; } ?>/></p>
             </form>
     </div>
     <div style="position:relative;bottom:40px">
